@@ -10,8 +10,8 @@
   Dr. Sherif Saad Ahmed
 
 ## Adding packages
-  pip3 install operator
-  pip3 install beautifulsoup4
+  pip3 install operator</br>
+  pip3 install beautifulsoup4</br>
   pip3 install jinja2
  
 ## How to run
