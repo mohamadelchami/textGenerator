@@ -1,0 +1,13 @@
+Hello {{name}},
+
+We are an international research firm looking for research participants. We've recognized you as a prime candidate to participate in one of our research studies in the fields of:
+
+1. {{interest1}}
+2. {{interest2}}
+3. {{interest3}}
+
+It will only take a few moments! As a thank you for participating in our research we will be providing you with a $25 Starbucks gift card upon completion and verification.
+
+If you would like to participate please click the participation button below.
+
+https://steve-pham.github.io/UserClicks/
