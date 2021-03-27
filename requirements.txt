@@ -1,0 +1,3 @@
+beautifulsoup4>=4.9.3
+Jinja2>=2.11
+git+https://github.com/AshrafTaifour/Private-Facebook-Scraper#egg=FacebookChatPhisher
