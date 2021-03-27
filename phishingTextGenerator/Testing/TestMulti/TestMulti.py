@@ -1,8 +1,14 @@
 import unittest
+import sys
+import os
+# hacky fix to get parent directory
+sys.path.append(os.getcwd() + '/../..')
 import textGenerator
 
 class testTextGenerator(unittest.TestCase):
-    textGenerator.main()
+    inputPath = os.getcwd()
+    outputPath = os.getcwd()
+    textGenerator.main(inputPath, outputPath)
 
     def testFormatting(self):
         for i in range(0, 1):
