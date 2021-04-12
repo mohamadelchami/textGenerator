@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 from jinja2 import Environment, FileSystemLoader
 import os
 import fnmatch
-from pprint import pprint
+from warnings import warn
 '''
 Library Overview:
 re - Used for regular expressions when extracting substrings from files
@@ -52,10 +52,12 @@ class User:
 '''
 cleanHTML will take the file initially read and clean it up in a typical HTML format for better data extraction
 '''
-def cleanHTML(file):
-    f = BeautifulSoup(file, "html.parser")
-    return f.prettify()
-
+def cleanHTML(inputFile):
+    with open(inputFile, 'r', encoding='utf-8') as file:
+        f = BeautifulSoup(file, "html.parser")
+        return f.prettify()
+    warn(f"Error: \"{inputFile}\" is not a valid file path")
+    return ''
 
 def extractUserName(user, file, cssSearchClass="gmql0nx0 l94mrbxd p1ri9a11 lzcic4wl bp9cbjyn j83agx80"):
     nextLine = False
@@ -113,7 +115,6 @@ def generatePhishingText(user, outputFile, templateFile):
     with open(outputFile, "w", encoding='utf-8') as f:
         f.write(html)
 
-
 '''
 generateEmail() will generate a HTML file based off the provided template using the data gather on the user.
 The parameters are the user object, for relevant user data, and the current file count, to create a consistent
@@ -139,29 +140,27 @@ def main(inputPath=os.getcwd(), outputPath=os.getcwd()):
     for friendLikesPage in friendLikesPages:
         # we can be sure the pattern matches because we used fmatch earlier
         i=int(re.search('friendLikesPage(\d+?)\.html', friendLikesPage).group(1))
+        inputFile = f"{inputPath}/{friendLikesPage}"
+
         #Store the reformatted HTML content into file
-        file = cleanHTML(open(friendLikesPage, 'r'))
+        file = cleanHTML(inputFile)
 
         #Because the file is no longer needed we will overwrite it with the reformatted HTML
-        createCleanedFile = open(friendLikesPage, 'w')
-        createCleanedFile.write(file)
-        createCleanedFile.close()
+        with open(inputFile, "w", encoding='utf-8') as createCleanedFile:
+            createCleanedFile.write(file)
 
         #We will then reopen this in read-mode and begin
-        file = open(friendLikesPage, 'r')
-        file = file.readlines()
-
-        #We will create a new user object
-        user = User()
-
-        #We begin to extract data from the file
-        #We will pass the current user object by using the file format counting variable(i)
-        extractUserName(user, file)
-        extractInterests(user, file)
-
-        #We will then generate then email and message files
-        generateEmail(user, i, outputPath)
-        generateText(user, i, outputPath)
+        with open(inputFile, "r", encoding='utf-8') as f:
+            file = f.readlines()
+            #We will create a new user object
+            user = User()
+            #We begin to extract data from the file
+            #We will pass the current user object by using the file format counting variable(i)
+            extractUserName(user, file)
+            extractInterests(user, file)
+            #We will then generate then email and message files
+            generateEmail(user, i, outputPath)
+            generateText(user, i, outputPath)
 
 #This was created to allow the file to execute alone
 if __name__ == "__main__":
