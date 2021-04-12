@@ -106,7 +106,6 @@ function takes an user object and template and then saves the output in the give
 '''
 def generatePhishingText(user, outputFile, templateFile):
     template_dir = str(pathlib.Path(__file__).parent.absolute())+ "/templates"
-    print(template_dir)
     env = Environment(loader = FileSystemLoader(template_dir))
     #Load the template we will be using
     template = env.get_template(templateFile)
