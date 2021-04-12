@@ -18,6 +18,8 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     packages=setuptools.find_packages(),
+    package_data={'phishingTextGenerator': ['templates/*']},
+    include_package_data=True,
     install_requires=REQUIRED,
     python_requires='>=3.7',
 )

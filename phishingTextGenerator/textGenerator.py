@@ -5,6 +5,8 @@ from jinja2 import Environment, FileSystemLoader
 import os
 import fnmatch
 from warnings import warn
+import pathlib
+
 '''
 Library Overview:
 re - Used for regular expressions when extracting substrings from files
@@ -103,8 +105,9 @@ def extractInterests(user, file):
 function takes an user object and template and then saves the output in the given output file
 '''
 def generatePhishingText(user, outputFile, templateFile):
-    file_loader = FileSystemLoader('templates')
-    env = Environment(loader=file_loader)
+    template_dir = str(pathlib.Path(__file__).parent.absolute())+ "/templates"
+    print(template_dir)
+    env = Environment(loader = FileSystemLoader(template_dir))
     #Load the template we will be using
     template = env.get_template(templateFile)
     #render out the template with the variables
