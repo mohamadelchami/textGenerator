@@ -1,4 +1,7 @@
 # Automated Social Media Spear-Phisher 
+
+created as part of a overall Fb-Twitter-gui repository. Please refer to that repo. 
+
 ## Authors: 
 - Abdullah Arif
 - Abdullah Chattha
